@@ -14,17 +14,17 @@ def sql_connection(db_file):
 
 def option1(conn):
     cursor_obj = conn.cursor()
-    name = input('Enter name of Customer :')
+    name = str(input('Enter name of Customer :'))
     opn_bal = int(input('Enter Opening Balance of Customer :'))
     entities = (name,opn_bal)
-    cursor_obj.execute('insert into basic_data(Name, Balance) values(?,?)',entities)
+    cursor_obj.execute('insert into basic_data(Name,Balance) values(?,?)',entities)
     print('Customer Added to the Database File ')
     conn.commit()
 
 
 def option5(conn):
     cursor_obj = conn.cursor()
-    cursor_obj.execute('SELECT NAME,BALANCE FROM basic_data')
+    cursor_obj.execute('SELECT Name,Balance FROM basic_data')
     data = cursor_obj.fetchall()
     print('Customer Name    Account Balance')
     for row in data:
@@ -33,7 +33,7 @@ def option5(conn):
 
 def main():
     print("Welcome to Billing System")
-    conn = sql_connection('cutomer-data.db')
+    conn = sql_connection('customer-data.db')
     option = 0
     while( option != 6 ):
         print("1 : Add New Customer ")
@@ -46,6 +46,9 @@ def main():
         option = int(input())
         if option == 1:
             option1(conn)
+            continue
+        elif option == 3:
+            #option3(conn)
             continue
         elif option == 5:
             option5(conn)
