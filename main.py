@@ -1,4 +1,19 @@
 import sqlite3
+from sqlite3 import Error
+
+
+def sql_connection(db_file):
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        print("Database connected")
+    except:
+        print(Error)
+    return conn
+
+
+def option1(conn):
+    cursor_obj = conn.cursor()
 
 
 def main():
@@ -16,4 +31,5 @@ def main():
             break
 
 if __name__ == "__main__":
-    main()
+    conn = sql_connection('cutomer-data.db')
+    option1(conn)
