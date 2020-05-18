@@ -22,6 +22,15 @@ def option1(conn):
     conn.commit()
 
 
+def option3(conn2):
+    cursor_obj = conn2.cursor()
+    cursor_obj.execute('SELECT * FROM BALANCE')
+    data = cursor_obj.fetchall()
+    print('Account Balance is : ')
+    for row in data:
+        print(row)
+
+
 def option5(conn):
     cursor_obj = conn.cursor()
     cursor_obj.execute('SELECT Name,Balance FROM basic_data')
@@ -34,6 +43,7 @@ def option5(conn):
 def main():
     print("Welcome to Billing System")
     conn = sql_connection('customer-data.db')
+    conn2 = sql_connection('my_sheet.db')
     option = 0
     while( option != 6 ):
         print("1 : Add New Customer ")
@@ -48,7 +58,7 @@ def main():
             option1(conn)
             continue
         elif option == 3:
-            #option3(conn)
+            option3(conn2)
             continue
         elif option == 5:
             option5(conn)
