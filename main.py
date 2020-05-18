@@ -31,7 +31,7 @@ def option3(conn2):
         print(row)
 
 
-def option5(conn):
+def option2(conn):
     cursor_obj = conn.cursor()
     cursor_obj.execute('SELECT Name,Balance FROM basic_data')
     data = cursor_obj.fetchall()
@@ -50,7 +50,7 @@ def main():
         print("2 : Show Data of Customer ")
         print("3 : Show Account Balance ")
         print("4 : Add Credit/Debit to Account ")
-        print("5 : Show All Customers ")
+        print("5 : Generate New Bill :")
         print("6 : Exit the Application")
         print("Enter Option Number : ")
         option = int(input())
@@ -60,11 +60,13 @@ def main():
         elif option == 3:
             option3(conn2)
             continue
-        elif option == 5:
-            option5(conn)
+        elif option == 2:
+            option2(conn)
             continue
         elif option == 6:
             print(' Thank you ')
+            conn.close()
+            conn2.close()
             break
 
 
