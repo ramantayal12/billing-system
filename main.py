@@ -22,15 +22,6 @@ def option1(conn):
     conn.commit()
 
 
-def option3(conn2):
-    cursor_obj = conn2.cursor()
-    cursor_obj.execute('SELECT * FROM BALANCE')
-    data = cursor_obj.fetchall()
-    print('Account Balance is : ')
-    for row in data:
-        print(row)
-
-
 def option2(conn):
     cursor_obj = conn.cursor()
     cursor_obj.execute('SELECT Name,Balance FROM basic_data')
@@ -38,6 +29,30 @@ def option2(conn):
     print('Customer Name    Account Balance')
     for row in data:
         print(row)
+
+
+def option3(conn2):
+    cursor_obj = conn2.cursor()
+    cursor_obj.execute('SELECT * FROM Balance')
+    data = cursor_obj.fetchall()
+    print('Account Balance is : ')
+    for row in data:
+        print(row)
+
+
+def option4(conn2):
+    cursor_obj = conn2.cursor()
+    cre = int(input('Enter Credit to be Added : '))
+    deb = int(input('Enter Debit to be Added : '))
+    cursor_obj.execute('SELECT * FROM Balance order by Account_Balance LIMIT 1,1')
+    last_balance_l = cursor_obj.fetchall()
+    last_balance = last_balance_l[0]
+    last_balance = last_balance[0]
+    #print(type(last_balance))
+    last_balance += cre
+    last_balance -= deb
+    #cursor_obj.execute('UPDATE Balance Account_Balance = (?) LIMIT 1,1 ', (last_balance))
+    conn2.commit()
     
 
 def main():
@@ -57,12 +72,22 @@ def main():
         if option == 1:
             option1(conn)
             continue
-        elif option == 3:
-            option3(conn2)
-            continue
         elif option == 2:
             option2(conn)
             continue
+        elif option == 3:
+            option3(conn2)
+            continue
+        elif option == 4:
+            option4(conn2)
+            continue
+        elif option == 5:
+            print("if bill is purchase please enter self in name coloumn")
+            name_cus = input('Enter the Customer Name : ')
+            amnt = input('Enter the Amount of Bill : ')
+            
+            continue
+        
         elif option == 6:
             print(' Thank you ')
             conn.close()
