@@ -44,14 +44,15 @@ def option4(conn2):
     cursor_obj = conn2.cursor()
     cre = int(input('Enter Credit to be Added : '))
     deb = int(input('Enter Debit to be Added : '))
-    cursor_obj.execute('SELECT * FROM Balance order by Account_Balance LIMIT 1,1')
+    cursor_obj.execute('SELECT * FROM Balance LIMIT 1')
     last_balance_l = cursor_obj.fetchall()
     last_balance = last_balance_l[0]
     last_balance = last_balance[0]
     #print(type(last_balance))
     last_balance += cre
     last_balance -= deb
-    #cursor_obj.execute('UPDATE Balance Account_Balance = (?) LIMIT 1,1 ', (last_balance))
+    query = 'SELECT Account_Balance+' + str(last_balance) + ' Account_Balance FROM Balance '
+    cursor_obj.execute(query)
     conn2.commit()
     
 
@@ -60,13 +61,14 @@ def main():
     conn = sql_connection('customer-data.db')
     conn2 = sql_connection('my_sheet.db')
     option = 0
-    while( option != 6 ):
+    while( option != 7 ):
         print("1 : Add New Customer ")
         print("2 : Show Data of Customer ")
         print("3 : Show Account Balance ")
         print("4 : Add Credit/Debit to Account ")
-        print("5 : Generate New Bill :")
-        print("6 : Exit the Application")
+        print("5 : Generate New Sale Bill : ")
+        print("6 : Enter New Purchase Bill : ")
+        print("7 : Exit the Application")
         print("Enter Option Number : ")
         option = int(input())
         if option == 1:
@@ -82,13 +84,12 @@ def main():
             option4(conn2)
             continue
         elif option == 5:
-            print("if bill is purchase please enter self in name coloumn")
             name_cus = input('Enter the Customer Name : ')
             amnt = input('Enter the Amount of Bill : ')
-            
             continue
-        
         elif option == 6:
+            print("Feature currently not implemented :")
+        elif option == 7:
             print(' Thank you ')
             conn.close()
             conn2.close()
