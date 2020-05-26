@@ -48,10 +48,9 @@ def option4(conn2):
     last_balance_l = cursor_obj.fetchall()
     last_balance = last_balance_l[0]
     last_balance = last_balance[0]
-    #print(type(last_balance))
     last_balance += cre
     last_balance -= deb
-    query = 'SELECT Account_Balance+' + str(last_balance) + ' Account_Balance FROM Balance '
+    query = 'UPDATE Balance SET Account_Balance = ' + str(last_balance)
     cursor_obj.execute(query)
     conn2.commit()
     
