@@ -40,7 +40,7 @@ def option3(conn2):
         print(row)
 
 
-def option4(conn2):
+def option4(conn2,cre = 0,deb = 0):
     cursor_obj = conn2.cursor()
     cre = int(input('Enter Credit to be Added : '))
     deb = int(input('Enter Debit to be Added : '))
@@ -53,7 +53,18 @@ def option4(conn2):
     query = 'UPDATE Balance SET Account_Balance = ' + str(last_balance)
     cursor_obj.execute(query)
     conn2.commit()
-    
+
+def option5(conn,name,amnt):
+    cursor_obj = conn.cursor()
+    query1 = 'SELECT * FROM basic_data WHERE Name = '+ name
+    cursor_obj.execute(query1)
+    last_balance_l = cursor_obj.fetchall()
+    last_balance = last_balance_l[1]
+    last_balance = last_balance[1]
+    last_balance -= amnt
+    query2 = ' UPDATE FROM basic_data SET Balance =' + str(last_balance)+' WHERE Name = '+ name
+    cursor_obj.execute(query2)
+    cursor_obj.commit()
 
 def main():
     print("Welcome to Billing System")
@@ -85,9 +96,13 @@ def main():
         elif option == 5:
             name_cus = input('Enter the Customer Name : ')
             amnt = input('Enter the Amount of Bill : ')
+            option4(conn2,amnt,0)
+            #option5(conn,name_cus,amnt)
             continue
         elif option == 6:
-            print("Feature currently not implemented :")
+            amnt = input('Enter the Amount of Purchase Bill : ')
+            option4(conn2,0,amnt)
+            continue
         elif option == 7:
             print(' Thank you ')
             conn.close()
